@@ -11,6 +11,8 @@ package com.mycompany.trabajolab5;
 public class TrabajoLab5 {
 
     public static void main(String[] args) {
+        
+   
       
     }
 }

@@ -22,3 +22,27 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# NetBeans files
+nbproject/private/
+build/
+dist/
+nbbuild/
+.nb-gradle/
+*.class
+*.log
+*.cache
+*.tmp
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# External libraries
+lib/
+*.jar
+
+# Compiler output
+out/
+target/
