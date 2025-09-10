@@ -10,6 +10,11 @@ package com.mycompany.trabajolab5;
 public class TrabajoLab5 {
 
     public static void main(String[] args) {
+	Ciudades ciudad=new Ciudades();
+        ciudad.setVisible(true); //hace visible pantalla(interfaz)
+        ciudad.setLocationRelativeTo(null); //centra pantalla
+
+
         Contacto contact1 = new Contacto("54546765", "Juan", "Lopez", "San Luis", "Los Alamos 456");
         Contacto contact2 = new Contacto("54376588", "Lucas", "Moura", "La Toma", "Av. Palito 2343");
         Contacto contact3 = new Contacto("34564574", "Marcos", "Diaz", "Merlo", "Las Heras 406");
