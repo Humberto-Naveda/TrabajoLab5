@@ -3,6 +3,8 @@
  */
 package com.mycompany.trabajolab5;
 
+import com.mycompany.trabajolab5.Interfaz.Ciudades;
+
 /**
  *
  * @author Humberto
