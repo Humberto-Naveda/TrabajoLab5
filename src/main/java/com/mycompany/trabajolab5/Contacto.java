@@ -65,7 +65,7 @@ public class Contacto {
 
     @Override
     public String toString() {
-        return "Contacto{" + "dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", ciudad=" + ciudad + ", direccion=" + direccion + '}';
+        return "DNI: " + dni + ", " + nombre + ", " + apellido + ", " + ciudad + ", " + direccion;
     }
     
     

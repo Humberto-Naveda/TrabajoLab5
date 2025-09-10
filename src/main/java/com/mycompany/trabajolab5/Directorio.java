@@ -52,9 +52,9 @@ public class Directorio {
     public void borrarContacto(Long telefono) {
         if (contactos.remove(telefono) != null) {
             System.out.println("Contacto eliminado");
-        } else {
+        } else 
             System.out.println("Contacto no encontrado");
         }
     }
 
-}
+
