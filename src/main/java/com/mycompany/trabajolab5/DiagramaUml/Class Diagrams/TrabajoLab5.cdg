@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="hh">
+  <ClassDiagramComponents>
+    <Class name="Contacto" package="" visibility="public" xPosition="170.0" yPosition="124.0">
+      <Fields>
+        <Field name="dni" type="String" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="ciudad" type="String" visibility="private"/>
+        <Field name="direccion" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Directorio" package="" visibility="public" xPosition="437.0" yPosition="162.0">
+      <Fields>
+        <Field name="contactos" type="TreeMap" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarContacto" returnType="void" visibility="public"/>
+        <Method name="buscarContacto" returnType="Contactos" visibility="public"/>
+        <Method name="buscarTelefono" returnType="set" visibility="public"/>
+        <Method name="buscarContactos" returnType="ArryList" visibility="public"/>
+        <Method name="borrarContacto" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
