@@ -23,6 +23,10 @@ public class Contacto {
         this.direccion = direccion;
     }
 
+    public Contacto() {
+    }
+    
+
     public String getDni() {
         return dni;
     }

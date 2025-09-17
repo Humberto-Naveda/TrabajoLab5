@@ -55,6 +55,8 @@ public class Directorio {
         } else 
             System.out.println("Contacto no encontrado");
         }
+    
+    public static ArrayList<String> lista= new ArrayList<>();
     }
 
 
