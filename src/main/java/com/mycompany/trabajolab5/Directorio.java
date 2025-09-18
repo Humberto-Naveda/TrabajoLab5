@@ -14,11 +14,17 @@ import java.util.TreeMap;
  */
 public class Directorio {
 
-    private TreeMap<Long, Contacto> contactos;
+    public static TreeMap<Long, Contacto> contactos;
 
     public Directorio() {
         this.contactos = new TreeMap<>();
     }
+
+    public static TreeMap<Long, Contacto> getContactos() {
+        return contactos;
+    }
+    
+    
 
     // A. agregar contactos
     public void agregarContacto(Long telefono, Contacto contacto) {

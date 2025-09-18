@@ -188,7 +188,6 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
-            Directorio di = new Directorio();
             Contacto contacto = new Contacto();
             contacto.setDni(txtDni.getText());
             contacto.setNombre(txtNombre.getText());
@@ -199,7 +198,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             if(txtApellido.getText().isEmpty()|| txtDni.getText().isEmpty()||txtDomicilio.getText().isEmpty()||txtNombre.getText().isEmpty()||txtTelefono.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
             }else{
-                di.agregarContacto(telefono, contacto);
+                Directorio.contactos.put(telefono, contacto);
                 JOptionPane.showMessageDialog(this, "El cliente: "+contacto.getNombre() + " " + contacto.getApellido()+ " fue agregado correctamente ");
                 txtApellido.setText("");
                 txtDni.setText("");

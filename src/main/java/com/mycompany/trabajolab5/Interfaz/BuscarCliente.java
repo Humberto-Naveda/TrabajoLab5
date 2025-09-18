@@ -4,6 +4,9 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
+import com.mycompany.trabajolab5.Directorio;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Emiliano
@@ -15,6 +18,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
      */
     public BuscarCliente() {
         initComponents();
+        llenarListaTelefonos();
     }
 
     /**
@@ -174,7 +178,13 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalir3ActionPerformed
-
+    private void llenarListaTelefonos(){
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        for(Long tel : Directorio.contactos.keySet()){
+            modelo.addElement(String.valueOf(tel));
+        }
+        jList1.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir3;
