@@ -4,6 +4,12 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
+import com.mycompany.trabajolab5.*;
+import java.util.ArrayList;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Emiliano
@@ -15,6 +21,8 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
      */
     public BorrarCliente() {
         initComponents();
+        llenarTabla();
+        LLenarListaDni();
     }
 
     /**
@@ -28,21 +36,21 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabla = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnSalir4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlLista = new javax.swing.JList<>();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("Borrar Cliente");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("DNI:");
+        jLabel2.setText("Telefono: ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -53,9 +61,14 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Teléfono"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTabla);
 
         jButton1.setText("Borrar Cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnSalir4.setText("Salir");
         btnSalir4.addActionListener(new java.awt.event.ActionListener() {
@@ -64,12 +77,12 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jlLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(jlLista);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,13 +102,13 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
                                 .addGap(28, 28, 28)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(220, 220, 220)
                         .addComponent(jLabel1)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +120,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -125,16 +138,57 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnSalir4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String telefonoStr = jlLista.getSelectedValue(); // teléfono elegido en la lista
+
+    if (telefonoStr == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un teléfono de la lista.");
+        return;
+    }
+
+    Long telefono = Long.parseLong(telefonoStr);
+
+    if (Directorio.borrarContacto(telefono)) {
+        JOptionPane.showMessageDialog(this, "Cliente borrado correctamente.");
+        llenarTabla();
+        LLenarListaDni();
+        txtTelefono.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "No se encontró un cliente con ese teléfono.");
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+     
+    private void LLenarListaDni() {
+        ArrayList<Long> telefonos = new ArrayList<>(Directorio.contactos.keySet());
+        jlLista.setListData(telefonos.stream().map(String::valueOf).toArray(String[]::new));
+    }
+       private void llenarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
+        modelo.setRowCount(0); // limpiar antes de cargar
+
+        for (Map.Entry<Long, Contacto> entry : Directorio.contactos.entrySet()) {
+            Contacto c = entry.getValue();
+            modelo.addRow(new Object[]{
+                c.getDni(),
+                c.getApellido(),
+                c.getNombre(),
+                c.getDireccion(),
+                c.getCiudad(),
+                entry.getKey() // teléfono
+            });
+        }
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir4;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTabla;
+    private javax.swing.JList<String> jlLista;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

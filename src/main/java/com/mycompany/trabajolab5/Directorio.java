@@ -55,11 +55,13 @@ public class Directorio {
         return contactosCiudad;
     }
 
-    public void borrarContacto(Long telefono) {
+    public static boolean borrarContacto(Long telefono) {
         if (contactos.remove(telefono) != null) {
             System.out.println("Contacto eliminado");
+            return true;
         } else 
             System.out.println("Contacto no encontrado");
+            return false;
         }
     
     public static ArrayList<String> lista= new ArrayList<>();
