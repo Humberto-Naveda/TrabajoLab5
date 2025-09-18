@@ -15,7 +15,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Class name="Directorio" package="" visibility="public" xPosition="437.0" yPosition="162.0">
+    <Class name="Directorio" package="" visibility="public" xPosition="564.0" yPosition="124.0">
       <Fields>
         <Field name="contactos" type="TreeMap" visibility="private"/>
       </Fields>

@@ -5,7 +5,9 @@
 package com.mycompany.trabajolab5;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -21,25 +23,27 @@ public class Directorio {
     }
 
     // A. agregar contactos
-    public void agregarContacto(Long telefono, Contacto contacto) {
+    public void agregarContacto (Long telefono, Contacto contacto) {
         contactos.put(telefono, contacto);
     }
 
     // B.Buscar contactos por numero
-    public Contacto buscarContacto(Long telefono) {
+    public Contacto buscarContacto (Long telefono) {
         return contactos.get(telefono);
     }
 
-    public Long buscarTelefono(String apellido) {
+    public Set<Long> buscarTelefono (String apellido) {
+        Set<Long> listaTel = new HashSet<>();
         for (Map.Entry<Long, Contacto> entry : contactos.entrySet()) {
             if (apellido.equalsIgnoreCase(entry.getValue().getApellido())) {
-                return entry.getKey();
+                listaTel.add(entry.getKey());
             }
         }
-        return null;
+        System.out.println("Apellido " + apellido + ": ");
+        return listaTel;
     }
 
-    public ArrayList<Contacto> buscarContactos(String ciudad) {
+    public ArrayList<Contacto> buscarContactos (String ciudad) {
         ArrayList<Contacto> contactosCiudad = new ArrayList<>();
         for (Contacto cont : contactos.values()) {
             if (ciudad.equalsIgnoreCase(cont.getCiudad())) {
@@ -49,12 +53,15 @@ public class Directorio {
         return contactosCiudad;
     }
 
-    public void borrarContacto(Long telefono) {
+    public void borrarContacto (Long telefono) {
         if (contactos.remove(telefono) != null) {
             System.out.println("Contacto eliminado");
-        } else 
+        } else {
             System.out.println("Contacto no encontrado");
         }
+     
     }
 
-
+  
+    
+}

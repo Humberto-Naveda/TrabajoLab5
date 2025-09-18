@@ -3,7 +3,7 @@
  */
 package com.mycompany.trabajolab5;
 
-import com.mycompany.trabajolab5.Interfaz.Ciudades;
+import com.mycompany.trabajolab5.Interfaz.frmMenuPrincipal;
 
 /**
  *
@@ -12,16 +12,16 @@ import com.mycompany.trabajolab5.Interfaz.Ciudades;
 public class TrabajoLab5 {
 
     public static void main(String[] args) {
-	Ciudades ciudad=new Ciudades();
+        frmMenuPrincipal ciudad=new frmMenuPrincipal();
         ciudad.setVisible(true); //hace visible pantalla(interfaz)
         ciudad.setLocationRelativeTo(null); //centra pantalla
 
 
-        Contacto contact1 = new Contacto("54546765", "Juan", "Lopez", "San Luis", "Los Alamos 456");
-        Contacto contact2 = new Contacto("54376588", "Lucas", "Moura", "La Toma", "Av. Palito 2343");
-        Contacto contact3 = new Contacto("34564574", "Marcos", "Diaz", "Merlo", "Las Heras 406");
-        Contacto contact4 = new Contacto("76964536", "Mia", "Alvarez", "Buenos Aires", "Av. Balcarce 567");
-        Contacto contact5 = new Contacto("25454565", "Martina", "Lopez", "San Luis", "Los Alamos 456");
+        Contacto contact1 = new Contacto(54546765L, "Juan", "Lopez", "San Luis", "Los Alamos 456");
+        Contacto contact2 = new Contacto(54376588L, "Lucas", "Moura", "La Toma", "Av. Palito 2343");
+        Contacto contact3 = new Contacto(34564574L, "Marcos", "Diaz", "Merlo", "Las Heras 406");
+        Contacto contact4 = new Contacto(76964536L, "Mia", "Alvarez", "Buenos Aires", "Av. Balcarce 567");
+        Contacto contact5 = new Contacto(25454565L, "Martina", "Lopez", "San Luis", "Los Alamos 456");
 
         Directorio dir1 = new Directorio();
 
