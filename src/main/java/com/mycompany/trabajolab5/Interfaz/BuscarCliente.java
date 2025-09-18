@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package com.mycompany.trabajolab5.Interfaz;
+
 import com.mycompany.trabajolab5.*;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -14,19 +15,21 @@ import javax.swing.DefaultListModel;
 public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private final DefaultListModel<Long> modeloListaTel = new DefaultListModel<>();
+    private void llenarListaTelefonos() {
+        modeloListaTel.clear();
+        for (Long tel : AgregarCliente.listaTel) {
+            modeloListaTel.addElement(tel);
+        }
+    }
+
     /**
+     * }
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
-
         initComponents();
         jlistTel.setModel(modeloListaTel);
-        modeloListaTel.clear();
-        
-        for (Long tel : AgregarCliente.listaTel) {
-            modeloListaTel.addElement(tel);
-            
-        }
+        llenarListaTelefonos();
 
     }
 
@@ -180,7 +183,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
