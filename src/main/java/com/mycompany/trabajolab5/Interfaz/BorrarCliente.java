@@ -23,6 +23,12 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         initComponents();
         llenarTabla();
         LLenarListaDni();
+        
+        jlLista.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && jlLista.getSelectedValue() != null) {
+                txtDni.setText(jlLista.getSelectedValue());
+            }
+        });
     }
 
     /**
@@ -36,10 +42,10 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbBorrar = new javax.swing.JButton();
         btnSalir4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jlLista = new javax.swing.JList<>();
@@ -48,7 +54,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jLabel1.setText("Borrar Cliente");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("Telefono: ");
+        jLabel2.setText("DNI:");
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,10 +69,10 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTabla);
 
-        jButton1.setText("Borrar Cliente");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbBorrar.setText("Borrar Cliente");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbBorrarActionPerformed(evt);
             }
         });
 
@@ -94,7 +100,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jbBorrar)
                                 .addGap(152, 152, 152)
                                 .addComponent(btnSalir4))
                             .addGroup(layout.createSequentialGroup()
@@ -102,7 +108,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane2)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                                    .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
                                 .addGap(28, 28, 28)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -120,13 +126,13 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jbBorrar)
                     .addComponent(btnSalir4))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -138,34 +144,34 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnSalir4ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String telefonoStr = jlLista.getSelectedValue(); // teléfono elegido en la lista
-
-    if (telefonoStr == null) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar un teléfono de la lista.");
-        return;
-    }
-
-    Long telefono = Long.parseLong(telefonoStr);
-
-    if (Directorio.borrarContacto(telefono)) {
-        JOptionPane.showMessageDialog(this, "Cliente borrado correctamente.");
-        llenarTabla();
-        LLenarListaDni();
-        txtTelefono.setText("");
-    } else {
-        JOptionPane.showMessageDialog(this, "No se encontró un cliente con ese teléfono.");
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-     
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        String dni = txtDni.getText().trim();
+        
+        Long telefonoEncontrado = null;
+        
+        for (Map.Entry<Long, Contacto> entry : Directorio.contactos.entrySet()) {
+            if (entry.getValue().getDni().equals(dni)) {
+                telefonoEncontrado = entry.getKey();
+                break;
+            }
+        }
+            Directorio.contactos.remove(telefonoEncontrado);
+            JOptionPane.showMessageDialog(this, "Cliente borrado correctamente.");
+            llenarTabla();
+            LLenarListaDni();
+            txtDni.setText("");
+    }//GEN-LAST:event_jbBorrarActionPerformed
+ 
     private void LLenarListaDni() {
-        ArrayList<Long> telefonos = new ArrayList<>(Directorio.contactos.keySet());
-        jlLista.setListData(telefonos.stream().map(String::valueOf).toArray(String[]::new));
+        ArrayList<String> dnis = new ArrayList<>();
+        for (Contacto c : Directorio.contactos.values()) {
+            dnis.add(c.getDni());
+        }
+        jlLista.setListData(dnis.toArray(new String[0]));
     }
        private void llenarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jTabla.getModel();
-        modelo.setRowCount(0); // limpiar antes de cargar
+        modelo.setRowCount(0); 
 
         for (Map.Entry<Long, Contacto> entry : Directorio.contactos.entrySet()) {
             Contacto c = entry.getValue();
@@ -175,20 +181,20 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                 c.getNombre(),
                 c.getDireccion(),
                 c.getCiudad(),
-                entry.getKey() // teléfono
+                entry.getKey() 
             });
         }
     } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir4;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabla;
+    private javax.swing.JButton jbBorrar;
     private javax.swing.JList<String> jlLista;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }
