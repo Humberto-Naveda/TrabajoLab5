@@ -4,6 +4,12 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
+import com.mycompany.trabajolab5.Contacto;
+import com.mycompany.trabajolab5.Directorio;
+import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Emiliano
@@ -15,6 +21,14 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
      */
     public BuscarPorCiudad() {
         initComponents();
+        actualizarComboCiudad();
+        if (!Directorio.lista.isEmpty()) {
+         jcCiudad.setSelectedIndex(0);
+        }
+        
+        llenarTabla();
+        
+        jcCiudad.addActionListener(e -> llenarTabla());
     }
 
     /**
@@ -28,9 +42,9 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcCiudad = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtClientes = new javax.swing.JTable();
         btnSalir5 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -39,9 +53,9 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Ciudades:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -52,7 +66,7 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Telefono"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtClientes);
 
         btnSalir5.setText("Salir");
         btnSalir5.addActionListener(new java.awt.event.ActionListener() {
@@ -71,8 +85,8 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                            .addComponent(jcCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
@@ -89,7 +103,7 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
                 .addGap(58, 58, 58)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1)
@@ -106,14 +120,44 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
     private void btnSalir5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir5ActionPerformed
        dispose();
     }//GEN-LAST:event_btnSalir5ActionPerformed
-
+    public void actualizarComboCiudad(){
+        cargar();
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(Directorio.lista.toArray(new String[0]));
+        jcCiudad.setModel(modelo);
+    }
+   public void cargar(){
+        if(Directorio.lista.isEmpty()){
+        Directorio.lista.add("San Luis");
+        Directorio.lista.add("La Toma");
+        Directorio.lista.add("Merlo");
+        Directorio.lista.add("Buenos Aires");
+        }
+    }
+   private void llenarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jtClientes.getModel();
+        modelo.setRowCount(0); 
+        //String ciudad = (String)jcCiudad.getSelectedItem();
+        for (Map.Entry<Long, Contacto> entry : Directorio.contactos.entrySet()) {
+            Contacto c = entry.getValue();
+            if(c.getCiudad().equals(jcCiudad.getSelectedItem())){
+             modelo.addRow(new Object[]{
+                c.getDni(),
+                c.getApellido(),
+                c.getNombre(),
+                c.getDireccion(),
+                c.getCiudad(),
+                entry.getKey() 
+            });
+            }  
+        }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> jcCiudad;
+    private javax.swing.JTable jtClientes;
     // End of variables declaration//GEN-END:variables
 }

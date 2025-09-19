@@ -4,6 +4,15 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
+import com.mycompany.trabajolab5.Contacto;
+import com.mycompany.trabajolab5.Directorio;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Emiliano
@@ -15,6 +24,24 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
      */
     public BuscarTelefono() {
         initComponents();
+         llenarListaApellido();
+        if (!Directorio.contactos.isEmpty()) {
+            jlLista.setSelectedIndex(0);
+        }
+
+        
+        llenarTabla();
+
+        
+        jlLista.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    jtApellido.setText(jlLista.getSelectedValue());
+                    llenarTabla();
+                }
+            }
+        });
     }
 
     /**
@@ -28,11 +55,11 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtApellido = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlLista = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtClientes = new javax.swing.JTable();
         btnSalir6 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -41,14 +68,14 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Apellido:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jlLista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jlLista);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -59,7 +86,7 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Telefono"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtClientes);
 
         btnSalir6.setText("Salir");
         btnSalir6.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +112,7 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                .addComponent(jTextField1))
+                                .addComponent(jtApellido))
                             .addGap(18, 18, 18)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -99,7 +126,7 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -114,16 +141,41 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
     private void btnSalir6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir6ActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalir6ActionPerformed
-
+     private void llenarListaApellido() {
+        Set<String> apellido= new TreeSet<>();
+        for (Contacto c : Directorio.contactos.values()) {
+            apellido.add(c.getApellido());
+        }
+        jlLista.setListData(apellido.toArray(new String[0]));
+        
+    }
+    private void llenarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jtClientes.getModel();
+        modelo.setRowCount(0); 
+        //String ciudad = (String)jcCiudad.getSelectedItem();
+        for (Map.Entry<Long, Contacto> entry : Directorio.contactos.entrySet()) {
+            Contacto c = entry.getValue();
+            if(c.getApellido().equals(jlLista.getSelectedValue())){
+             modelo.addRow(new Object[]{
+                c.getDni(),
+                c.getApellido(),
+                c.getNombre(),
+                c.getDireccion(),
+                c.getCiudad(),
+                entry.getKey() 
+            });
+            }  
+        }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<String> jlLista;
+    private javax.swing.JTextField jtApellido;
+    private javax.swing.JTable jtClientes;
     // End of variables declaration//GEN-END:variables
 }

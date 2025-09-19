@@ -22,7 +22,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     public BorrarCliente() {
         initComponents();
         llenarTabla();
-        LLenarListaDni();
+        llenarListaDni();
         
         jlLista.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && jlLista.getSelectedValue() != null) {
@@ -158,11 +158,11 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
             Directorio.contactos.remove(telefonoEncontrado);
             JOptionPane.showMessageDialog(this, "Cliente borrado correctamente.");
             llenarTabla();
-            LLenarListaDni();
+            llenarListaDni();
             txtDni.setText("");
     }//GEN-LAST:event_jbBorrarActionPerformed
  
-    private void LLenarListaDni() {
+    private void llenarListaDni() {
         ArrayList<String> dnis = new ArrayList<>();
         for (Contacto c : Directorio.contactos.values()) {
             dnis.add(c.getDni());

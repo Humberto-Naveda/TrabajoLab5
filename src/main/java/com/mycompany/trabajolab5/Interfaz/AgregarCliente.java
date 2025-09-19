@@ -219,7 +219,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
        jcCiudad.setModel(modelo);
     }
     public void cargar(){
-        Directorio.lista.add("San luis");
+        Directorio.lista.add("San Luis");
         Directorio.lista.add("La Toma");
         Directorio.lista.add("Merlo");
         Directorio.lista.add("Buenos Aires");
