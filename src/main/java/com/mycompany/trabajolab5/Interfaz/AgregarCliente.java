@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class AgregarCliente extends javax.swing.JInternalFrame {
 
-    public static ArrayList<Long> listaTel = new ArrayList<>();
     public static Directorio listaDNI = new Directorio();
 
     /**
@@ -282,7 +281,6 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         }
 
         Contacto c = new Contacto(dni, nombre, apellido, ciudad, direccion);
-        listaTel.add(telefono);
         listaDNI.agregarContacto(telefono, c);
 
         JOptionPane.showMessageDialog(this, "Se agrego el cliente correctamente.");

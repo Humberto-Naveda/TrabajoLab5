@@ -4,17 +4,60 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
+import javax.swing.DefaultListModel;
+import com.mycompany.trabajolab5.*;
+import java.util.Map;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Emiliano
  */
-public class BuscarTelefono extends javax.swing.JInternalFrame {
+public class BuscarPorApellido extends javax.swing.JInternalFrame {
+
+    private final DefaultListModel modeloListaApellido = new DefaultListModel<>();
+
+    private void llenarListaApellido() {
+        modeloListaApellido.clear();
+        for (Contacto c : AgregarCliente.listaDNI.contactos.values()) {
+            modeloListaApellido.addElement(c.getApellido());
+        }
+        jlistApellido.setModel(modeloListaApellido);
+    }
+
+    private void mostrarClienteTabla(String apellido) {
+        DefaultTableModel modeloTablaCliente = (DefaultTableModel) jtableCliente3.getModel();
+        modeloTablaCliente.setRowCount(0);
+        for (Map.Entry<Long, Contacto> e : AgregarCliente.listaDNI.contactos.entrySet()) {
+            if (e.getValue().getApellido().equals(apellido)) {
+                modeloTablaCliente.addRow(new Object[]{
+                    e.getValue().getDni(),
+                    e.getValue().getApellido(),
+                    e.getValue().getNombre(),
+                    e.getValue().getDireccion(),
+                    e.getValue().getCiudad(),
+                    e.getKey()
+                });
+            }
+
+        }
+    }
 
     /**
      * Creates new form BuscarTelefono
      */
-    public BuscarTelefono() {
+    public BuscarPorApellido() {
         initComponents();
+        llenarListaApellido();
+        jlistApellido.setModel(modeloListaApellido);
+        jlistApellido.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                String apellidoSeleccionado = jlistApellido.getSelectedValue();
+                if (apellidoSeleccionado != null) {
+                    mostrarClienteTabla(apellidoSeleccionado);
+                }
+            }
+        });
     }
 
     /**
@@ -28,11 +71,11 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        javax.swing.JTextField jtextApellido = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlistApellido = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableCliente3 = new javax.swing.JTable();
         btnSalir6 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -41,14 +84,14 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Apellido:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jlistApellido.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jlistApellido);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtableCliente3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -59,7 +102,7 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                 "DNI", "Apellido", "Nombre", "Direccion", "Ciudad", "Telefono"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtableCliente3);
 
         btnSalir6.setText("Salir");
         btnSalir6.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +128,7 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                .addComponent(jTextField1))
+                                .addComponent(jtextApellido))
                             .addGap(18, 18, 18)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -99,13 +142,13 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                            .addComponent(jtextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSalir6)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -120,10 +163,9 @@ public class BuscarTelefono extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<String> jlistApellido;
+    private javax.swing.JTable jtableCliente3;
     // End of variables declaration//GEN-END:variables
 }

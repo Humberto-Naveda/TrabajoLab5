@@ -6,7 +6,9 @@ package com.mycompany.trabajolab5.Interfaz;
 
 import javax.swing.DefaultListModel;
 import com.mycompany.trabajolab5.*;
+import java.util.Iterator;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,12 +30,12 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
    
 
     private void mostrarClienteTabla(Long dni) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
+        DefaultTableModel modeloTablaCliente = (DefaultTableModel) jTable1.getModel();
+        modeloTablaCliente.setRowCount(0);
         for (Map.Entry<Long, Contacto> e : AgregarCliente.listaDNI.contactos.entrySet()) {
             Contacto c = e.getValue();
         if (c.getDni().equals(dni))
-        model.addRow(new Object[] {
+        modeloTablaCliente.addRow(new Object[] {
             c.getDni(),
             c.getApellido(),
             c.getNombre(),
@@ -53,7 +55,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
          jlistDni.setModel(modeloListaDni);
         jlistDni.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                Long dniSeleccionado =(jlistDni.getSelectedValue());
+                Long dniSeleccionado =jlistDni.getSelectedValue();
                 if (dniSeleccionado != null) {
                     mostrarClienteTabla(dniSeleccionado);
                 }
@@ -173,10 +175,32 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalir4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jlistDni.getSelectedValue() != null) {
-            
-            
+        Long dniSeleccionado = jlistDni.getSelectedValue();
+        if (dniSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un DNI para eliminar.");
+            return;
         }
+        
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar al contacto con DNI: " + dniSeleccionado + "?" , "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (respuesta != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
+        Iterator<Map.Entry<Long, Contacto>> it = AgregarCliente.listaDNI.contactos.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Long, Contacto> e = it.next();
+            if (e.getValue() != null && dniSeleccionado.equals(e.getValue().getDni())) {
+                it.remove();
+                JOptionPane.showMessageDialog(this, "Cliente eliminado.");
+                modeloListaDni.removeElement(dniSeleccionado);
+                DefaultTableModel modeloTablaCliente = (DefaultTableModel) jTable1.getModel();
+                mostrarClienteTabla(dniSeleccionado);
+                return;
+            }
+        }
+        
+        JOptionPane.showMessageDialog(this, "Cliente no encontrado");
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

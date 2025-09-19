@@ -18,7 +18,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     
     private void llenarListaTelefonos() {
         modeloListaTel.clear();
-        for (Long tel : AgregarCliente.listaTel) {
+        for (Long tel : AgregarCliente.listaDNI.contactos.keySet()) {
             modeloListaTel.addElement(tel);
         }
     }

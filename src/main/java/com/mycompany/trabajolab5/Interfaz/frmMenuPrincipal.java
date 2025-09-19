@@ -204,15 +204,16 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         BuscarPorCiudad buscarCiudad=new BuscarPorCiudad();
-        buscarCiudad.setVisible(true);
         escritorio.add(buscarCiudad);
+         buscarCiudad.setVisible(true);
         escritorio.moveToFront(buscarCiudad);
+       
     }//GEN-LAST:event_itemBuscarPorCiudadActionPerformed
 
     private void itemBuscarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarTelefonoActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        BuscarTelefono buscarApellido=new BuscarTelefono();
+        BuscarPorApellido buscarApellido=new BuscarPorApellido();
         buscarApellido.setVisible(true);
         escritorio.add(buscarApellido);
         escritorio.moveToFront(buscarApellido);

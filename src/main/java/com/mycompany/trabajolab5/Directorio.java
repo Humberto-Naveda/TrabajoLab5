@@ -62,8 +62,8 @@ public class Directorio {
      
     }
     
-        public void borrarContacto (Long dni) {
-        if (contactos.r != null) {
+        public void borrarContactoDni (Long dni) {
+        if (contactos.remove(dni) != null) {
             System.out.println("Contacto eliminado");
         } else {
             System.out.println("Contacto no encontrado");
