@@ -16,7 +16,7 @@ import java.util.TreeMap;
  */
 public class Directorio {
 
-    private TreeMap<Long, Contacto> contactos;
+    public static TreeMap<Long, Contacto> contactos;
 
     public Directorio() {
         this.contactos = new TreeMap<>();
@@ -55,6 +55,15 @@ public class Directorio {
 
     public void borrarContacto (Long telefono) {
         if (contactos.remove(telefono) != null) {
+            System.out.println("Contacto eliminado");
+        } else {
+            System.out.println("Contacto no encontrado");
+        }
+     
+    }
+    
+        public void borrarContacto (Long dni) {
+        if (contactos.r != null) {
             System.out.println("Contacto eliminado");
         } else {
             System.out.println("Contacto no encontrado");

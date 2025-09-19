@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class AgregarCliente extends javax.swing.JInternalFrame {
 
     public static ArrayList<Long> listaTel = new ArrayList<>();
-    private static Directorio listaDNI = new Directorio();
+    public static Directorio listaDNI = new Directorio();
 
     /**
      *
@@ -100,7 +100,11 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Apellido:");
 
-        jtextApellido.setText("jTextField3");
+        jtextApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtextApellidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -244,26 +248,52 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcomboCiudadActionPerformed
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        String sDni = jtextDni.getText();
+        String nombre = jtextNombre.getText();
+        String apellido = jtextApellido.getText();
+        String ciudad = (String) jcomboCiudad.getSelectedItem();
+        String direccion = jtextDomi.getText();
+        String sTelefono = jtextTel.getText();
+
+        if (jtextDni.getText().isEmpty() || jtextNombre.getText().isEmpty() || jtextApellido.getText().isEmpty() || jtextDomi.getText().isEmpty() || jtextDni.getText().isEmpty() || jtextTel.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (ciudad.equals("Ciudad")) {
+            JOptionPane.showMessageDialog(this, "Ingrese una ciudad valida", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Long dni;
+        Long telefono;
+
         try {
-            Long dni = Long.parseLong(jtextDni.getText());
-            String nombre = jtextNombre.getText();
-            String apellido = jtextApellido.getText();
-            String ciudad = (String) jcomboCiudad.getSelectedItem();
-            String direccion = jtextDomi.getText();
-            Long telefono = Long.parseLong(jtextTel.getText());
-
-            Contacto c = new Contacto(dni, nombre, apellido, ciudad, direccion);
-
-            listaTel.add(telefono);
-            listaDNI.agregarContacto(telefono, c);
-
-            if (ciudad.equals("Ciudad")) {
-                JOptionPane.showMessageDialog(this, "Ingrese una ciudad valida", "Error", JOptionPane.WARNING_MESSAGE);
-            }
+            dni = Long.parseLong(sDni);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Formato no valido para campo numerico", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+        try {
+            telefono = Long.parseLong(sTelefono);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Formato no valido para campo numerico", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Contacto c = new Contacto(dni, nombre, apellido, ciudad, direccion);
+        listaTel.add(telefono);
+        listaDNI.agregarContacto(telefono, c);
+
+        JOptionPane.showMessageDialog(this, "Se agrego el cliente correctamente.");
+        jtextDni.setText("");
+        jtextNombre.setText("");
+        jtextApellido.setText("");
+        jcomboCiudad.setSelectedItem(0);
+        jtextDomi.setText("");
+        jtextTel.setText("");
+
+
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jtextTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextTelActionPerformed
@@ -273,6 +303,10 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     private void jtextDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtextDniActionPerformed
+
+    private void jtextApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtextApellidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
