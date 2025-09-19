@@ -214,8 +214,15 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     public void actualizarCombo(){
+       cargar();
        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(Directorio.lista.toArray(new String[0]));
        jcCiudad.setModel(modelo);
+    }
+    public void cargar(){
+        Directorio.lista.add("San luis");
+        Directorio.lista.add("La Toma");
+        Directorio.lista.add("Merlo");
+        Directorio.lista.add("Buenos Aires");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
