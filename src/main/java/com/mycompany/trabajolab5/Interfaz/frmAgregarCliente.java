@@ -8,13 +8,14 @@ import com.mycompany.trabajolab5.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Emiliano
  */
-public class AgregarCliente extends javax.swing.JInternalFrame {
+public class frmAgregarCliente extends javax.swing.JInternalFrame {
 
     public static Directorio listaDNI = new Directorio();
 
@@ -22,11 +23,11 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
      *
      * Creates new form AgregarCliente
      */
-    public AgregarCliente() {
+    public frmAgregarCliente() {
         initComponents();
         jcomboCiudad.removeAllItems();
         jcomboCiudad.addItem("Ciudad");
-        for (String ciudad : AgregarCiudad.directorioCiudades) {
+        for (String ciudad : frmAgregarCiudad.directorioCiudades) {
             jcomboCiudad.addItem(ciudad);
         }
         jcomboCiudad.setSelectedIndex(0);
@@ -248,14 +249,14 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
         // TODO add your handling code here:        
-        String sDni = jtextDni.getText();
+        String sDni = jtextDni.getText().trim();
         String nombre = jtextNombre.getText();
         String apellido = jtextApellido.getText();
         String ciudad = (String) jcomboCiudad.getSelectedItem();
         String direccion = jtextDomi.getText();
         String sTelefono = jtextTel.getText();
 
-        if (jtextDni.getText().isEmpty() || jtextNombre.getText().isEmpty() || jtextApellido.getText().isEmpty() || jtextDomi.getText().isEmpty() || jtextDni.getText().isEmpty() || jtextTel.getText().isEmpty()) {
+        if (jtextDni.getText().isEmpty() || jtextNombre.getText().isEmpty() || jtextApellido.getText().isEmpty() || jtextDomi.getText().isEmpty() || jtextTel.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -279,6 +280,22 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Formato no valido para campo numerico", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+            if (frmAgregarCliente.listaDNI.contactos.containsKey(telefono)) {
+                JOptionPane.showMessageDialog(this, "Ya existe un cliente con el telefono ingresado.");
+                return;
+            }
+            
+        
+        
+        for (Map.Entry<Long, Contacto> e : frmAgregarCliente.listaDNI.contactos.entrySet()) {
+            if (e.getValue().getDni().equals(dni)) {
+                JOptionPane.showMessageDialog(this, "Ya existe un cliente con el DNI ingresado."); 
+                return;
+            }
+           
+        
+        }
 
         Contacto c = new Contacto(dni, nombre, apellido, ciudad, direccion);
         listaDNI.agregarContacto(telefono, c);
@@ -287,7 +304,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         jtextDni.setText("");
         jtextNombre.setText("");
         jtextApellido.setText("");
-        jcomboCiudad.setSelectedItem(0);
+        jcomboCiudad.setSelectedIndex(0);
         jtextDomi.setText("");
         jtextTel.setText("");
 

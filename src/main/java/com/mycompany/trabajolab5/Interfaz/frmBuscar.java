@@ -12,19 +12,19 @@ import javax.swing.DefaultListModel;
  *
  * @author Emiliano
  */
-public class BuscarCliente extends javax.swing.JInternalFrame {
+public class frmBuscar extends javax.swing.JInternalFrame {
 
     private final DefaultListModel<Long> modeloListaTel = new DefaultListModel<>();
     
     private void llenarListaTelefonos() {
         modeloListaTel.clear();
-        for (Long tel : AgregarCliente.listaDNI.contactos.keySet()) {
+        for (Long tel : frmAgregarCliente.listaDNI.contactos.keySet()) {
             modeloListaTel.addElement(tel);
         }
     }
     
     private void mostrarCliente(Long telefono) {
-        Contacto c = AgregarCliente.listaDNI.buscarContacto(telefono);
+        Contacto c = frmAgregarCliente.listaDNI.buscarContacto(telefono);
         jtextDni2.setText(String.valueOf((c.getDni())));
         jtextApellido2.setText(c.getApellido());
         jtextNombre2.setText(c.getNombre());
@@ -42,7 +42,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
      * }
      * Creates new form BuscarCliente
      */
-    public BuscarCliente() {
+    public frmBuscar() {
         initComponents();
         jlistTel.setModel(modeloListaTel);
         llenarListaTelefonos();

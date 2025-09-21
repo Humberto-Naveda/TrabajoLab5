@@ -12,16 +12,16 @@ import com.mycompany.trabajolab5.*;
  *
  * @author Emiliano
  */
-public class BuscarPorCiudad extends javax.swing.JInternalFrame {
+public class frmBuscarClienteCiudad extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form BuscarPorCiudad
      */
-    public BuscarPorCiudad() {
+    public frmBuscarClienteCiudad() {
         initComponents();
         jcomboCiudad2.removeAllItems();
         jcomboCiudad2.addItem("Ciudad");
-        for (String ciudad : AgregarCiudad.directorioCiudades) {
+        for (String ciudad : frmAgregarCiudad.directorioCiudades) {
             jcomboCiudad2.addItem(ciudad);
         }
         jcomboCiudad2.setSelectedIndex(0);
@@ -30,7 +30,7 @@ public class BuscarPorCiudad extends javax.swing.JInternalFrame {
     private void mostrarClienteTabla2(String ciudad) {
         DefaultTableModel modeloTablaCliente2 = (DefaultTableModel) jtableCliente2.getModel();
         modeloTablaCliente2.setRowCount(0);
-        for (Map.Entry<Long, Contacto> e : AgregarCliente.listaDNI.contactos.entrySet()) {
+        for (Map.Entry<Long, Contacto> e : frmAgregarCliente.listaDNI.contactos.entrySet()) {
             if (e.getValue().getCiudad().equals(ciudad))
             modeloTablaCliente2.addRow(new Object[] {
             e.getValue().getDni(),

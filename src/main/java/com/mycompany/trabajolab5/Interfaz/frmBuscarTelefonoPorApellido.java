@@ -7,28 +7,40 @@ package com.mycompany.trabajolab5.Interfaz;
 import javax.swing.DefaultListModel;
 import com.mycompany.trabajolab5.*;
 import java.util.Map;
+import java.util.TreeSet;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Emiliano
  */
-public class BuscarPorApellido extends javax.swing.JInternalFrame {
+public class frmBuscarTelefonoPorApellido extends javax.swing.JInternalFrame {
 
     private final DefaultListModel modeloListaApellido = new DefaultListModel<>();
 
     private void llenarListaApellido() {
+        TreeSet<String> apellidosUnicos = new TreeSet(String.CASE_INSENSITIVE_ORDER);
+        
         modeloListaApellido.clear();
-        for (Contacto c : AgregarCliente.listaDNI.contactos.values()) {
-            modeloListaApellido.addElement(c.getApellido());
-        }
+        
+        for (Contacto c : frmAgregarCliente.listaDNI.contactos.values()) {
+            if (c.getApellido() != null && !c.getApellido().isEmpty()) {
+                            apellidosUnicos.add(c.getApellido().trim());
+            }
+}
+            
+            for (String ap : apellidosUnicos) {
+                modeloListaApellido.addElement(ap);
+            }
+
+        
         jlistApellido.setModel(modeloListaApellido);
     }
 
     private void mostrarClienteTabla(String apellido) {
         DefaultTableModel modeloTablaCliente = (DefaultTableModel) jtableCliente3.getModel();
         modeloTablaCliente.setRowCount(0);
-        for (Map.Entry<Long, Contacto> e : AgregarCliente.listaDNI.contactos.entrySet()) {
+        for (Map.Entry<Long, Contacto> e : frmAgregarCliente.listaDNI.contactos.entrySet()) {
             if (e.getValue().getApellido().equals(apellido)) {
                 modeloTablaCliente.addRow(new Object[]{
                     e.getValue().getDni(),
@@ -46,7 +58,7 @@ public class BuscarPorApellido extends javax.swing.JInternalFrame {
     /**
      * Creates new form BuscarTelefono
      */
-    public BuscarPorApellido() {
+    public frmBuscarTelefonoPorApellido() {
         initComponents();
         llenarListaApellido();
         jlistApellido.setModel(modeloListaApellido);

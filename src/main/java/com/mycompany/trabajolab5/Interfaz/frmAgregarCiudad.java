@@ -4,22 +4,22 @@
  */
 package com.mycompany.trabajolab5.Interfaz;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Emiliano
  */
-public class AgregarCiudad extends javax.swing.JInternalFrame {
+public class frmAgregarCiudad extends javax.swing.JInternalFrame {
  
-    static List<String> directorioCiudades = new ArrayList<>();
+    static Set<String> directorioCiudades = new HashSet<>();
 
     /**
      * Creates new form AgregarCiudad
      */
-    public AgregarCiudad() {
+    public frmAgregarCiudad() {
         initComponents();
     }
 

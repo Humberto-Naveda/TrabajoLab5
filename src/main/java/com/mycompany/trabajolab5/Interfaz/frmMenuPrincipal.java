@@ -168,7 +168,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void itemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClienteActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        AgregarCliente cliente=new AgregarCliente();
+        frmAgregarCliente cliente=new frmAgregarCliente();
         cliente.setVisible(true);
         escritorio.add(cliente);
         escritorio.moveToFront(cliente);
@@ -177,7 +177,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void itemCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCiudadActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        AgregarCiudad ciudad=new AgregarCiudad();
+        frmAgregarCiudad ciudad=new frmAgregarCiudad();
         ciudad.setVisible(true);
         escritorio.add(ciudad);
         escritorio.moveToFront(ciudad);    }//GEN-LAST:event_itemCiudadActionPerformed
@@ -185,7 +185,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void itemBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarClienteActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        BuscarCliente b1=new BuscarCliente();
+        frmBuscar b1=new frmBuscar();
         b1.setVisible(true);
         escritorio.add(b1);
         escritorio.moveToFront(b1);    
@@ -194,7 +194,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void btnBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarClienteActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        BorrarCliente borrar=new BorrarCliente();
+        frmBorrar borrar=new frmBorrar();
         borrar.setVisible(true);
         escritorio.add(borrar);
         escritorio.moveToFront(borrar);
@@ -203,7 +203,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void itemBuscarPorCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarPorCiudadActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        BuscarPorCiudad buscarCiudad=new BuscarPorCiudad();
+        frmBuscarClienteCiudad buscarCiudad=new frmBuscarClienteCiudad();
         escritorio.add(buscarCiudad);
          buscarCiudad.setVisible(true);
         escritorio.moveToFront(buscarCiudad);
@@ -213,7 +213,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void itemBuscarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarTelefonoActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        BuscarPorApellido buscarApellido=new BuscarPorApellido();
+        frmBuscarTelefonoPorApellido buscarApellido=new frmBuscarTelefonoPorApellido();
         buscarApellido.setVisible(true);
         escritorio.add(buscarApellido);
         escritorio.moveToFront(buscarApellido);

@@ -15,13 +15,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Emiliano
  */
-public class BorrarCliente extends javax.swing.JInternalFrame {
+public class frmBorrar extends javax.swing.JInternalFrame {
 
     private final DefaultListModel<Long> modeloListaDni = new DefaultListModel<>();
 
     private void llenarListaDni() {
         modeloListaDni.clear();
-        for (Contacto c : AgregarCliente.listaDNI.contactos.values()) {
+        for (Contacto c : frmAgregarCliente.listaDNI.contactos.values()) {
             modeloListaDni.addElement(c.getDni());
         }
         jlistDni.setModel(modeloListaDni);
@@ -32,7 +32,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     private void mostrarClienteTabla(Long dni) {
         DefaultTableModel modeloTablaCliente = (DefaultTableModel) jTable1.getModel();
         modeloTablaCliente.setRowCount(0);
-        for (Map.Entry<Long, Contacto> e : AgregarCliente.listaDNI.contactos.entrySet()) {
+        for (Map.Entry<Long, Contacto> e : frmAgregarCliente.listaDNI.contactos.entrySet()) {
             Contacto c = e.getValue();
         if (c.getDni().equals(dni))
         modeloTablaCliente.addRow(new Object[] {
@@ -49,7 +49,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     /**
      * Creates new form BorrarCliente
      */
-    public BorrarCliente() {
+    public frmBorrar() {
         initComponents();
         llenarListaDni();
          jlistDni.setModel(modeloListaDni);
@@ -186,7 +186,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
             return;
         }
         
-        Iterator<Map.Entry<Long, Contacto>> it = AgregarCliente.listaDNI.contactos.entrySet().iterator();
+        Iterator<Map.Entry<Long, Contacto>> it = frmAgregarCliente.listaDNI.contactos.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Long, Contacto> e = it.next();
             if (e.getValue() != null && dniSeleccionado.equals(e.getValue().getDni())) {
